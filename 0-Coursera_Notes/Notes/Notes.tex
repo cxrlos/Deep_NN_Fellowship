@@ -4,7 +4,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{mathcomp}
-\usepackage[english,spanish]{babel}
+\usepackage[english]{babel}
 \usepackage{sectsty}
 \usepackage{dirtytalk}
 \usepackage{listings}
@@ -27,16 +27,45 @@
 
 \usepackage[symbol]{footmisc}
 
-\usepackage[tocflat]{tocstyle}
+\usepackage{tocstyle}
 \usetocstyle{standard}
 \usepackage{blindtext}
 
+\newcommand{\Lagr}{\mathcal{L}}
+
+\usepackage{lstautogobble}  % Fix relative indenting
+\usepackage{color}          % Code coloring
+\usepackage{zi4}            % Nice font
+
+\definecolor{bluekeywords}{rgb}{0.13, 0.13, 1}
+\definecolor{greencomments}{rgb}{0, 0.5, 0}
+\definecolor{redstrings}{rgb}{0.9, 0, 0}
+\definecolor{graynumbers}{rgb}{0.5, 0.5, 0.5}
+
+\setlength\parindent{0pt}
+
 \lstset{
-basicstyle=\small\ttfamily,
-columns=flexible,
-breaklines=true
+    autogobble,
+    columns=fullflexible,
+    showspaces=false,
+    showtabs=false,
+    breaklines=true,
+    showstringspaces=false,
+    breakatwhitespace=true,
+    escapeinside={(*@}{@*)},
+    commentstyle=\color{greencomments},
+    keywordstyle=\color{bluekeywords},
+    stringstyle=\color{redstrings},
+    numberstyle=\color{graynumbers},
+    basicstyle=\ttfamily\footnotesize,
+    frame=l,
+    framesep=12pt,
+    xleftmargin=12pt,
+    tabsize=4,
+    captionpos=b
 }
 
+\setcounter{secnumdepth}{0}
 \makeatletter
 \renewcommand\tableofcontents{
   \null\hfill\textbf{\Large\contentsname}\hfill\null\par
@@ -54,9 +83,9 @@ breaklines=true
 	{\LARGE \textbf{Notes}\par}
 	{\LARGE Neural Networks and Deep Learning \par}
 	\vfill
-	{\Large\itshape Carlos Garc\'ia Gon\'alez\par}
+	{\Large\itshape Carlos Garc\'ia Gonz\'alez\par}
 	\vspace{1cm}
-	{\large April 2020 - June 2020 \par}
+	{\large Summer 2020 \par}
 \end{titlepage}
 
 \tableofcontents
@@ -65,7 +94,7 @@ breaklines=true
 \chapter{Neural Networks and Deep Learning}
 
 \section{Week 1}
-\subsection*{What is a Neural Network?}
+\subsection{What is a Neural Network?}
 The housing price prediction problem can be seen as the simplest of Neural Networks. First, lets start by assuming that the house pricing is only affected by its size.
 \begin{center}
 	\textit{Size x -> Neuron (does the determined function) -> Price y}
@@ -96,7 +125,7 @@ The network processes two different types of data:
 \end{itemize}
 With these three the network can predict the output Y value. Giving a Neural Network enough correlational X:Y data will make it better at figuring out the sort of equations that are similar to the ones on the training data.
 
-\subsection*{Supervised Learning}
+\subsection{Supervised Learning}
 Economic value of deep learning implementations really come from Supervised learning.
 You have an input x and you want to have a result y. In the previous problem it would be x = Home features, y = Price and the application would impact on the real estate business. Another example could be related to e-marketing, where x = Ad \& user info, y = Click on add? (t/f) and the would impact on online advertising. Another examples could be related to computer vision, audio recognition, machine translation and other topic related projects. Simple neural networks such as the two first examples have usually a standard NN implementation, image processing is often convolutional and sequential data implementations (such as audio, because it has a temporal component) are often recursive NN; for particular or more complex implementations there can be custom or hybrid architectures.
 \begin{center}
@@ -104,7 +133,7 @@ You have an input x and you want to have a result y. In the previous problem it 
 \end{center}
 Structured data (DB with specific fields) vs unstructured data (audio, images, [···]), this tangible difference is important to take into account because historically it has been more difficult to calculate from the latter, hence the importance of the architecture design importance. Although the most \say{exciting} implementations are often the unstructured data related systems, the market has more demand for well-built structured data solutions.
 
-\subsection*{Why is Deep Learning taking off?}
+\subsection{Why is Deep Learning taking off?}
 In the traditional learning algorithms, there was a point where the increment of input data did nothing for the performance of the system. In modern problem solving we have a lot of data to handle, so the design of a system which could profit from it was considered crucial. Neural networks are capable of incrementing the system performance in a better fashion than traditional implementations. 
 \begin{center}
 	\includegraphics[width = .50\textwidth]{PRGR.png}
@@ -116,7 +145,7 @@ Deep learning progress has developed a weighted importance in data, computation-
 
 \section{Week 2}
 
-\subsection*{Binary Classification}
+\subsection{Binary Classification}
 Usually the data processing is based on going through the entire dataset without explicitly using a for loop. Usually the process consists of a forward pause/forward propagation step, followed by a backward pause/backward propagation step.\\
 Binary classification consists of an input x that is processed by an algorithm that outputs a binary value called label which indicates a certain input behavior or feature. For image classification (cat vs no cat), the image is decomposed to every pixel value per channel and then concatenated into a single object. \\
 A single training example is denoted by the following notation:\\
@@ -141,7 +170,7 @@ For the label output, stacking the results in columns has also been commonly use
 	, Y \in \mathbb{R}^{1 \times m} 
  \end{equation}
 
-\subsection*{Logistic Regression}
+\subsection{Logistic Regression}
 Learning algorithm used when output labels Y are either 0 or 1. Given an input feature vector $x$, you need an algorithm that can output a value $\hat{y}$ representing the prediction weather the feature vector has or has not a certain behavior; the prediction of $\hat{y}$ being equal to 1 can be written as $\hat{y} = P(y=1|x)$.\\
 Given the parameters $w \in \mathbb{R}^{n_x}, b \in \mathbb{R}$, we must be able to construct a function that goes through the feature vector $x$ and outputs $\hat{y}$. The function is a modification of $w^Tx + b$ so that the range does not exceed 1 or be smaller than 0, for this, the use of a sigmoid function is required. The sigmoid of $z$ [\ref{fig:F2}] can be calculated through the expression $\sigma(z)=\frac{1}{1+e^{-z}}$; if the $z$ value is very large the output will be closer to 1, on the contrary it will be closer to 0.
 \begin{figure}
@@ -162,8 +191,45 @@ Given the parameters $w \in \mathbb{R}^{n_x}, b \in \mathbb{R}$, we must be able
 	\end{tikzpicture}
 	\caption{Plot of an example sigmoid function} \label{fig:F2}
 \end{figure}
-Given the previous knowledge, we can now assume the following function:$z = w^Tx + b, \hat{y} = \sigma(z)$. When implementing logistic regression, it is crucial to learn parameters $w$ and $b$ so that $\hat{y}$ becomes a good estimate of the chance of $y$ being equal to 1; $b$ usually corresponds to an inter-spectrum parameter. In neural network implementations it is recommended to keep these parameters separate although there are some implementations in which these are contained in the same vector.
+Given the previous knowledge, we can now assume the following function: $z = w^Tx + b, \hat{y} = \sigma(z)$. When implementing logistic regression, it is crucial to learn parameters $w$ and $b$ so that $\hat{y}$ becomes a good estimate of the chance of $y$ being equal to 1; $b$ usually corresponds to an inter-spectrum parameter. In neural network implementations it is recommended to keep these parameters separate although there are some implementations in which these are contained in the same vector.
 \newpage
+\subsection{Logistic Regression Cost Function}
+To train parameters $w$ and $b$ it is essential to define a cost function. As a result, it is desired that $\hat{y}^{(i)} \approx y^{(i)}$, each training example can be represented as $\hat{y} = \sigma(w^tx^{(i)}+b)$.\\
+To measure the efectiveness of the developed algorithm it is necessary to use the loss function. Square error is often used in other disciplines, but due to the nature of the network-related problems the following formula is used instead: $\mathcal{L}(\hat{y},y)= -(ylog\hat{y}+(1-y)log(1-\hat{y}))$. The desired result for $\mathcal{L}$ is for it to be as small as possible.\\
+The loss function checks for every training example how it is behaving, in order to check the complete training set a cost function must be used. The cost function is defined by: $J(w,b)=\frac{1}{m}\sum_{i=1}^{m} \mathcal{L}(\hat{y}^{(i)},y^{(i)})$.
+
+\subsection{Gradient Descent}
+\begin{figure}
+    \centering
+    \includegraphics[width = .50\textwidth]{GD.png}
+    \caption{Plot of a gradient descent} \label{fig:F3}
+\end{figure}
+The gradient descent algorithm is used to learn the parameters $w$ and $b$. In the figure [\ref{fig:F3}] the parameters are represented in the x and y axis while the result of the cost function $J$ is represented in the z axis. In the figure it's clear that the objective should be to find the values in which $w$ and $b$ converge while the cost function is 0. Analyzing the convex representation of the gradient descent also reveals the use of the previously-mentioned cost function; if square error was utilized, the graph would show crevices leading to erroneous calculations.\\
+The process to estimate the final values consists of an \say{initial guess} for the parameters, some people use random generators for this step but is quite rare. Gradient descent starts at the given point and \say{descends} downhill through the graph until it reaches the global optimal.
+\newpage
+\begin{figure}
+    \centering
+    \includegraphics[width = .50\textwidth]{GDE.png}
+    \caption{Example of a bidimensional gradient descent} \label{fig:F4}
+\end{figure}
+To better understand the gradient descent process let $J(w)$ be a concave function that we want to find the $w$ value for it to be 0; a pseudocode for the descent would be:
+\begin{lstlisting}[mathescape=true]
+Repeat{
+    w := w - $\alpha \frac{d J(w)}{d w}$
+}
+\end{lstlisting}
+This process is repeated until the algoritm can encounter an acceptable answer for the conversion. $\alpha$ is the representation for the learning rate, this controlls the size of the step for each iteration, and the quantity obtained by the derivative is simply the update of the change that the parameter $w$ will suffer. A visual representation can be the one on figure [\ref{fig:F4}].\\
+Of course, thanks to the cost function consisting of two variables the updates would have to occur for both parameters. The updates would be the following for $J(w,b)$:\\
+$w := w - \alpha \frac{\partial J(w,b)}{\partial w}, b := b - \alpha \frac{\partial J(w,b)}{\partial b}$\\
+
+\subsection{Computation Graph}
+Computation of a NNET are organized by forward pass/forward propagation in which the output is calculated, followed by a backward pass/propagation step in which the gradients are computed; the computation graph is a representation in which it's shown why it is done this way. A computation graph is a graphical representation of the calculation processes in a computer. an easy example can be the following:
+\begin{center}
+    \includegraphics[width = .75\textwidth]{CG.png}
+\end{center}
+These are useful when there is an output variable that can be optimized; in logistic regression, the output $J$ of the cost function is expected to be minimized as much as possible. The process for this to be possible is a \say{right to left} (from the result to the original inputs) that can be translated to derivatives in computing terms.
+
+\subsection{Derivatives with a Computation Graph}
 
 
 \chapter{Improving Deep Neural Networks}
