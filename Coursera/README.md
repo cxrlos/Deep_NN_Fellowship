@@ -3,5 +3,5 @@
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Python_logo_and_wordmark.svg/1280px-Python_logo_and_wordmark.svg.png" height="64" alt="Python Logo">
 </p>
 <h1 align="center">Coursera - Deep Learning Specialization</h1>
-<p align="center"> Notes and codes developed in Andrew NG's course, uploaded for device syncing purposes. </p>
+<p align="center"> Notes for the 5 specializations, the Python notebook files are temporary until I print them out for future reference. </p>
 
