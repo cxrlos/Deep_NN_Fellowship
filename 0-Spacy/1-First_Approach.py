@@ -1,7 +1,7 @@
 """ ------------------------------------------- First_Approach.py ---------
     |
     |   Purpose: First Spacy implementation, testing capibilities and NLP
-    |       context-free performance.
+    |       NER performance.
     |
     |   Developer:
     |       Carlos García - https://github.com/cxrlos
@@ -14,13 +14,18 @@ from collections import Counter
 import en_core_web_sm
 nlp = en_core_web_sm.load()
 
-def LocalhostGraphs():
-    displacy.serve(doc2, style='ent')
+def LocalhostGraphs(inFile):
+    displacy.serve(inFile, style='ent')
     options = {"compact": True, "color": "black", "font": "Source Sans Pro"}
-    displacy.serve(doc, style="dep", options=options)
+    displacy.serve(inFile, style="dep", options=options)
 
+def main():
 # Classification with context
-doc = nlp('Juventus Andrea Pirlo\'s role before the call came from Andrea Agnelli to replace the axed Maurizio Sarri. Pirlo has got his feet under the table and with the new season a matter of weeks away, the scrutiny over his system and tactics is intensifying.')
-doc2 = nlp('It appears increasingly likely that Pirlo is going to lean towards a 3-4-1-2 system. The move harks back to the Antonio Conte era, the start of this dominant run that has them eyeing a tenth straight Serie A title this season. The three central defenders, at least initially, will be Merih Demiral, Leonardo Bonucci and Giorgio Chiellini, awaiting the return of Matthjis De Ligt by the end of October as he recovers from surgery.')
-print([(X.text, X.label_) for X in doc.ents])
-LocalhostGraphs()
+    testSetence = nlp(" Former Italy star Andrea Pirlo took to the pitch for the final time to say goodbye to football in a star-studded testimonial \"Night of the Master\" tournament at the San Siro on Monday. Champions and former teammates from all over the world – from Paolo Maldini to Gianluigi Buffon, and Roberto Baggio to Frank Lampard – joined the retiring legend to celebrate the final act of a glittering career. \"I thank my friends and all the people who came to the stadium to enjoy a fantastic evening of entertainment, sport and charity,\" the 39-year-old said as he received a standing ovation from 50,000 fans.")
+    print([(X.text, X.label_) for X in testSetence.ents])
+    LocalhostGraphs(testSetence)
+    contextFree = nlp("Italy Pirlo 200 Av. Gaetano Scirea 123 Alessandro Del Piero")
+    LocalhostGraphs(contextFree)
+
+if __name__ == "__main__":
+    main()
