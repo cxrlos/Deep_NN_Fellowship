@@ -22,18 +22,17 @@ As of today, the packages used for the development are the following:
 
 ## NER Labels Used
 
-Dates - Accepts different accepted formats.
+The [en_core_web_lg][https://spacy.io/models/en#en_core_web_lg] will be used, there is an equivalent type of classification in the package for almost every desired value type.
 
-Numbers
+|    **Data Type**     |                 **SpaCy Default Value**                 |                          **Notes**                           |
+| :------------------: | :-----------------------------------------------------: | :----------------------------------------------------------: |
+|         Date         |                        ``DATE``                         |            Different formats should be recognized            |
+|       Numbers        |                ``CARDINAL``,``QUANTITY``                |                                                              |
+|       Currency       |                        ``MONEY``                        |                   It's a subset of numbers                   |
+|     * Addresses      | Not included, but ``FAC``, ``LOC`` types can be helpful | Can be separated by different OCR readings due to break lines |
+|         Name         |        ``PERSON``, ``ORG``,``NORP``,``PRODUCT``         |          Representing a person, company, or product          |
+|     * Identifier     |                      Not included                       |        Alphanumerical code unique to a specific item         |
+| * Miscellaneous text |                      Not included                       | Text representing all the other possible strings such as annotations |
 
-Currency - Subset of numbers.
+> We might divide Name into subclasses.
 
-Addresses - Strings that determine a location, can be separated by different OCR readings due to break lines.
-
-Name - String representing a person, company, or product.
-
-> We may divide this type into subclasses.
-
-Identifier - Alphanumerical code unique to a specific item.
-
-Miscellaneous text - Text representing all the other possible strings such as annotations.
