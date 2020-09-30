@@ -88,7 +88,7 @@ def convert_google_to_standard(json_data, mode='ALL_VERTICES'):
             img_width = 1000
             word = {'text': token[0], 'boundingBox': r, 'alignment_h': r[0] / img_width,
                     'pts': token[1], 'words': token[2], 'confidence':token[3], 'chars':token[4],
-                    'chars_pts':token[5], 'entity':[]}
+                    'chars_pts':token[5]}
             words.append(word)
         return words
     else:
