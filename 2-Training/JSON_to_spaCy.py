@@ -8,46 +8,28 @@
     |
     *------------------------------------------------------------------ """
 
-# TODO: Implement a dir-wise iterative pass (or call from main)
-# TODO: De-hardcode class storage
-# TODO: Return method
-
 import json
-import spacy
 
+# Class for each instance of an entity detection, it will be passed this way to
+# better fit the spaCy training format. 
 class DetectedEnt:
     def __init__(self, start, end, d_type):
-        self.start = start 
-        self.end = end 
-        self.d_type = d_type
+        self.start = start # Start pos relative to the concatenated JSON text
+        self.end = end # Ending pos relative to the concatenated JSON text
+        self.d_type = d_type # Entity type according to labelling
 
-with open('../../Data/experiment_results/labelling/1-1-tags.json') as f:
-    data = json.load(f)
+def ConvertJSON(path):
+    with open(path) as f:
+        data = json.load(f)
+    json_text = '' # Will contain the JSON's text in a single string
+    counter = 0 # To keep track of word positioning
+    cl_store = [] # Array to be returned
 
-training_set = []
-json_text = ''
-counter = 0
+    for x in data:
+        word_len = len(x['text'])
+        json_text +=(x['text'])
+        this_value = DetectedEnt(counter, counter+word_len, x['tags'][2])
+        cl_store.append(this_value)
+        counter += word_len + 1
 
-# Maybe implement a linked list which will receive the class object
-cl_store = []
-
-# Hard-coded storage for the time being
-hc_st= []
-hc_end= []
-hc_type = []
-
-# ("Walmart is a leading e-commerce company", {"entities": [(0, 7, "ORG")]})
-for x in data:
-    word_len = len(x['text'])
-    json_text +=(x['text'])
-    this_value = DetectedEnt(counter, counter+word_len, x['tags'][2])
-    hc_st.append(counter)
-    hc_end.append(counter+word_len)
-    hc_type.append(x['tags'][2])
-    counter += word_len + 1
-print(json_text, '\n')
-
-for i in range(0, len(hc_st)):
-    print(hc_st[i], hc_end[i], hc_type[i])
-
-# Return should pass class and text
+    return cl_store, json_text
