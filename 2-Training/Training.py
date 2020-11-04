@@ -50,10 +50,8 @@ training_set = []
 for x in files:
     current_file, json_text = JSON_to_spaCy.ConvertJSON(x)
     for y in current_file:
-        training_set.extend((json_text, {"entities": [(y.start, y.end, y.d_type)]}))
-    print(json_text)
-    print(training_set)
-    print('\n')
+        training_set.extend([(json_text, {"entities": [(y.start, y.end, y.d_type)]})])
+    # print(training_set, '\n')
 
 
 # TODO: Make previous assignation work as the following structure
@@ -76,6 +74,7 @@ graph_data = []
 print('Training in process, please wait for a moment')
 with nlp.disable_pipes(*unaffected_pipes):
   for iteration in range(max_iterations):
+    bar.log('' + str(iteration))
     random.shuffle(training_set)
     losses = {}
     batches = minibatch(training_set, size=compounding(4.0, 32.0, 1.001))

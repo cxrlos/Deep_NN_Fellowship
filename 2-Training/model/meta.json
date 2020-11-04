@@ -450,11 +450,13 @@
       "xcomp"
     ],
     "ner":[
+      "ADDRESS",
       "CARDINAL",
       "DATE",
       "EVENT",
       "FAC",
       "GPE",
+      "IDENTIFIER",
       "LANGUAGE",
       "LAW",
       "LOC",
@@ -464,10 +466,13 @@
       "ORG",
       "PERCENT",
       "PERSON",
+      "PHONE",
       "PRODUCT",
       "QUANTITY",
       "TIME",
-      "WORK_OF_ART"
+      "WORK_OF_ART",
+      "anchor",
+      "stopword"
     ]
   },
   "spacy_git_version":"bf778f59c",

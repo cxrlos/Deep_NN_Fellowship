@@ -28,7 +28,8 @@ def ConvertJSON(path):
     for x in data:
         word_len = len(x['text'])
         json_text +=(x['text'] + ' ')
-        this_value = DetectedEnt(counter, counter+word_len, x['tags'][2])
+        tag_str = str(x['tags'][2])
+        this_value = DetectedEnt(counter, counter+word_len, tag_str[2:-2])
         cl_store.append(this_value)
         counter += word_len + 1
 
